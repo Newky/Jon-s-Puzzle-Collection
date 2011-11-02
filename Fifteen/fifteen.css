@@ -1,0 +1,45 @@
+body {
+
+	font-family: sans-serif;
+	color: white;
+	background-color: #004D79;
+
+	}
+
+a {
+
+	color: white;
+	text-decoration: underline;
+
+	}
+
+h1 {
+
+	margin: 5px 0;
+	padding: 0;
+
+	}
+
+p {
+
+	margin: 10px 0;
+	padding: 0;
+	line-height: 1.4em;
+
+	}
+
+#container {
+
+	width: 500px;
+	margin: 0 auto;
+
+	}
+
+#grid {
+
+	margin: 5px 80px;
+	background-color: #5FA6BC;
+	border: thin solid black;
+
+
+	}

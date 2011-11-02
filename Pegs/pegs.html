@@ -1,0 +1,33 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+
+<head> 
+
+	<meta charset="utf-8" /> 
+	<title> Pegs </title> 
+	<script src="pegs.js"> </script> 
+	<link rel="stylesheet" href="pegs.css" />
+
+</head>
+
+<body onload="pegs();"> 
+<div id="container">
+
+	<h1> Peg Solitaire </h1> 
+
+	<p> Remove all but one peg, finishing with the final peg in the middle of the board. </p>
+
+	<p> Pegs can be removed by jumping them, as in draughts. Only vertical and horizontal moves are allowed; diagonal moves are not allowed. </p>
+
+	<canvas id="grid" height="350" width="350" style="border: thin solid black;"> </canvas> 
+
+	<p> Feedback, particularly code improvements, welcome. Send it to jonrob DOT one AT googlemail DOT com. </p> 
+
+	<p> Original inspiration for creating this game came from <a href="http://www.chiark.greenend.org.uk/~sgtatham/puzzles/">Simon Tatham's Portable Puzzle Collection</a>. I hope to recreate more of these in Javascript + HTML5 canvas as I learn to program. </p> 
+
+	<p> Code for detecting and correctly placing mouse clicks came from <a href="http://diveintohtml5.info/">Dive Into HTML5</a> - an excellent book. </p>
+
+</div>
+</body> 
+
+</html>

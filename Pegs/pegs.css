@@ -1,0 +1,45 @@
+body {
+
+	font-family: sans-serif;
+	background-color: #EBEFC9;
+
+	}
+
+a {
+
+	text-decoration: underline;
+	color: grey;
+
+
+	}
+
+h1 {
+
+	margin: 5px 0;
+	padding: 0;
+
+	}
+
+p {
+
+	margin: 10px 0;
+	padding: 0;
+	line-height: 1.4em;
+
+	}
+
+#container {
+
+	width: 500px;
+	margin: 0 auto;
+
+	}
+
+#grid {
+
+	margin: 5px 80px;
+	background-color: #EEE0B7;
+	border: thin solid black;
+
+
+	}
