@@ -1,68 +1,128 @@
-bridges = {};
-
-bridges.getContext = function () {
-
-	var canvas = document.getElementById('grid');
-	var context = canvas.getContext('2d');
-
-	return context;
-
+var Coord = function (x, y) {
+    this.x = x; 
+    this.y = y;
 };
 
-bridges.getCanvas = function () {
-
-	var canvas = document.getElementById('grid');
-	return canvas;
-
+var Island = function (coord) { 
+    this.x = coord.x;
+    this.y = coord.y;
+    this.numBridges = 0;
 };
 
-bridges.drawGrid = function () {
-
-	var canvas = bridges.getCanvas();
-	var context = bridges.getContext(); 
-	context.strokeStyle = '#eee';
-	var width = canvas.width;
-	var height = canvas.height;
-
-	for (var x = 40.5; x < canvas.width; x += 40) {
-
-		context.moveTo(x, 0);
-		context.lineTo(x, height);
-
-	}
-
-	for (var y = 40.5; y < canvas.height; y += 40) {
-
-		context.moveTo(0, y);
-		context.lineTo(width, y);
-
-	}
-
-	context.stroke();
-	
+var grid = function (size) {
+    var grid = [];
+    for (var x = 0; x < size; x++) {
+        grid[x] = [];
+        for (var y = 0; y < size; y++) {
+           grid[x][y] = undefined;
+        }
+    }
+    return grid;
 };
 
-bridges.drawIsland = function (x, y) {
+var board = grid(5); 
 
-	var context = bridges.getContext();
-	context.beginPath();
-	var radius = 15;
+//wrapper function
+var setGrid = function (board, numIslands) {
 
-	var cx = x + 20;
-	var cy = y + 20;
+    var coordIterator = function (object) {
+    //create an iterator of all possible island positions, 
+    //given either an empty board or a previously placed island. 
+    //returns an array of coords. 
+        var poss = [];
+        if (object instanceof Coord) { 
+            for (var x = (object.x + 1); x < board.length; x++) {
+                poss.push(new Coord(x, object.y)); 
+            }
+            for (var x = 0; x < object.x; x++) {
+                poss.push(new Coord(x, object.y));
+            }
+            for (var y = (object.y + 1); y < board.length; y++) { 
+                poss.push(new Coord(object.x, y));
+            }
+            for (var y = 0; y < object.y; y++) {
+                poss.push(new Coord(object.x, y));
+            }
+        } else {
+            for (var x = 0; x < board.length; x++) {
+                for (var y = 0; y < board.length; y++) {
+                    poss.push(new Coord(x, y));
+                }
+            }
+        }
 
-	context.arc(cx, cy, radius, 0, Math.PI * 2, false);
-	context.closePath();
-	context.strokeStyle = '#000';
-	context.stroke();
+        var iterator = {
+            next: function () {
+                if (poss) {
+                    var x = Math.floor(Math.random() * poss.length);
+                    var splice = poss.splice(x, 1)[0];
+                    return splice;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return iterator; 
+    };
 
+    var isSafe = function (next, previous) { 
+    //TODO: create checks to ensure islands are placed correctly
+    //islands can't be placed next to each other. 
+    //bridges can't cross over one another. 
+    //islands can connect to existing islands
+        return true;
+    };
+
+    var placeIsland = function (coord) {
+    //TODO: need to add connection tracking code
+        board[coord.x][coord.y] = new Island(coord); 
+    };
+
+    var removeIsland = function (coord) {
+    //TODO: add connectino tracking code
+        board[coord.x][coord.y] = undefined;
+    };
+
+    var setGridInternal = function (previous, numIslands) {
+        var poss = coordIterator(previous);
+        var next = poss.next();
+        numIslands--;
+        console.log(next);
+
+        if (numIslands <= 0) return true;
+
+        while (next) {
+            if (isSafe(next, previous)) { //TODO
+                placeIsland(next);
+                if (setGridInternal(next, numIslands)) return true;
+                removeIsland(next);
+            }
+            next = poss.next();
+        }
+        return false;
+    };  
+    
+    var poss = coordIterator(board);
+    var next = poss.next();
+
+    while (next) {
+        placeIsland(next); 
+        if (setGridInternal(next, numIslands)) return true;
+        removeIsland(next); 
+        next = poss.next();
+    }
+    return false;
 };
 
-bridges.pickSpot = function () {
+var drawGrid = function (board) {
 
-	var canvas = bridges.getCanvas();
-	var x = (Math.floor((Math.ceil(250 * Math.random()))/40) * 40);
-	var y = (Math.floor((Math.ceil(250 * Math.random()))/40) * 40);
+    var canvas = document.getElementById('board');
+    var context = canvas.getContext('2d');
 
-	return x;
-};
+    for (var x = 0; x < board.length; x += 30) {
+        for (var y = 0; y < board[x].length; y += 30) {
+            context.beginPath
+
+    }
+
+}
