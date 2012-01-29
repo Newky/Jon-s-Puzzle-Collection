@@ -2,12 +2,44 @@ var Coord = function (x, y) {
     this.x = x; 
     this.y = y;
 };
-
-var Island = function (coord) { 
+/* This is the islands in bridge.
+ * simple x and y coordinate.
+ * with a num bridge count.
+ * This will need a certain number as well surely??
+ */
+var Island = function (coord, num) { 
     this.x = coord.x;
     this.y = coord.y;
     this.numBridges = 0;
+    this.num = num;
+
+    this.valid = function() { return (this.numBridges == this.num;) };
 };
+
+/* For a grid of size 5 x 5
+ * you have a grid that looks like.
+ * x	x	x	x	x
+ * x	x	x	x	x
+ * x	x	x	x	x
+ * x	x	x	x	x
+ * I.e thats is a [5][5] Array
+ * The easiest way to show the connections is to have a grid which is 4 times as big i.e
+ * each node has 4 connection ways.
+ *    ^
+ * <- x  ->
+ *    v
+ * So we need another 5x5 array with a Connection object.
+ * which is just a quad of Numbers (0, 1, 2)
+ * Like (0, 1, 2, 3)
+ * Would signify 0 connections above.
+ * 1 Connections below.
+ * 2 Connections to the right.
+ * 3 Connections to the left.
+ * Building from this to query how many connections we count our own connections.
+ * so we go connections[ourx][oury].
+ * sum(0, 1, 2, 3) = 6 if our num is 6 then Yay. else Awww..
+ * I think this is the easiest way to represent the problem.
+ */
 
 var grid = function (size) {
     var grid = [];
@@ -124,5 +156,4 @@ var drawGrid = function (board) {
             context.beginPath
 
     }
-
 }
